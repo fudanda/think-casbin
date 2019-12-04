@@ -1,6 +1,6 @@
 <?php
 
-namespace FuDanDa\Casbin\common\model;
+namespace FuDanDa\Casbin\model;
 
 
 use think\db\Query;
@@ -23,8 +23,7 @@ class Common extends Model
     {
         /** 接收参数 */
         $page = input('param.page/d', 1);
-        $limit = input('param.limit/d', 15);
-
+        $limit = input('param.limit/d', 10);
         /** 设置分页 */
         $query->page($page, $limit);
     }

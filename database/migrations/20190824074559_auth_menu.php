@@ -29,6 +29,8 @@ class AuthMenu extends Migrator
      */
     public function change()
     {
+        $table_name = config('database.prefix') ?: '' . 'menu';
+
         $table = $this->table('menu');
 
         $table->addColumn('name', 'string', ['limit' => 100])
@@ -36,7 +38,7 @@ class AuthMenu extends Migrator
             ->addColumn('parent_id', 'integer', ['limit' => MysqlAdapter::INT_REGULAR, 'default' => 0])
             ->addColumn('order', 'integer', ['limit' => MysqlAdapter::BLOB_REGULAR, 'default' => 1000])
             ->addColumn('icon', 'string', ['limit' => 100])
-            ->addColumn('uri', 'string', ['limit' => 100, 'default' => ''])
+            ->addColumn('href', 'string', ['limit' => 100, 'default' => ''])
             ->addColumn('permission', 'string', ['limit' => 100, 'default' => ''])
             ->addColumn('status', 'integer', ['limit' => MysqlAdapter::INT_TINY, 'default' => 0, 'null' => false])
             ->addColumn('create_time', 'integer', ['limit' => MysqlAdapter::INT_REGULAR, 'default' => 0])
@@ -50,7 +52,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 0,
             'order'       => 1,
             'icon'        => 'layui-icon layui-icon-set',
-            'uri'         => '',
+            'href'         => '',
             'create_time' => time(),
             'update_time' => time(),
         ];
@@ -60,7 +62,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 1,
             'order'       => 2,
             'icon'        => '',
-            'uri'         => 'admin/menu',
+            'href'         => 'admin/menu',
             'create_time' => time(),
             'update_time' => time(),
         ];
@@ -70,7 +72,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 1,
             'order'       => 3,
             'icon'        => '',
-            'uri'         => 'admin/permission',
+            'href'         => 'admin/permission',
             'create_time' => time(),
             'update_time' => time(),
         ];
@@ -80,7 +82,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 1,
             'order'       => 4,
             'icon'        => '',
-            'uri'         => 'admin/role',
+            'href'         => 'admin/role',
             'create_time' => time(),
             'update_time' => time(),
         ];
@@ -90,7 +92,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 0,
             'order'       => 5,
             'icon'        => 'layui-icon layui-icon-user',
-            'uri'         => '',
+            'href'         => '',
             'create_time' => time(),
             'update_time' => time(),
         ];
@@ -100,7 +102,7 @@ class AuthMenu extends Migrator
             'parent_id'   => 5,
             'order'       => 6,
             'icon'        => '',
-            'uri'         => 'admin/auth/admins',
+            'href'         => 'admin/auth/admins',
             'create_time' => time(),
             'update_time' => time(),
         ];
