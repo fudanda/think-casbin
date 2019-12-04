@@ -11,7 +11,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FuDanDa\\Casbin\\": "src"
+            "FuDanDa\\Casbin\\": "src/",
+            "CasbinAdapter\\DBAL\\": "adapter/"
         },
         "files": [
             "helper.php"
@@ -21,7 +22,7 @@
         "php": ">=5.6.0",
         "topthink/framework": "5.1.*",
         "casbin/casbin": "^2.1",
-        "casbin/dbal-adapter": "^1.1"
+        "topthink/think-migration": "2.0.*"
     },
     "extra": {
         "think-config": {
