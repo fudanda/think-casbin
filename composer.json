@@ -27,7 +27,6 @@
     "extra": {
         "think-config": {
             "casbin": "config/casbin.php",
-            "casbin.rbac.conf": "config/casbin.rbac.conf"
         }
     }
 }

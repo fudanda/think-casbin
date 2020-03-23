@@ -40,18 +40,9 @@ class CasbinRule extends Migrator
             ->create();
         $default[] = [
             'ptype' => 'g',
-            'v0'    => 'alice',
+            'v0'    => '超级管理员',
             'v1'    => 'admin',
-            'v2'    => null,
-            'v3'    => null,
-            'v4'    => null,
-            'v5'    => null,
-        ];
-        $default[] = [
-            'ptype' => 'g',
-            'v0'    => 'alice',
-            'v1'    => 'root',
-            'v2'    => null,
+            'v2'    => '超级管理员',
             'v3'    => null,
             'v4'    => null,
             'v5'    => null,
@@ -59,8 +50,26 @@ class CasbinRule extends Migrator
         $default[] = [
             'ptype' => 'p',
             'v0'    => 'admin',
-            'v1'    => '/foo',
-            'v2'    => null,
+            'v1'    => '/admin',
+            'v2'    => 'all',
+            'v3'    => null,
+            'v4'    => null,
+            'v5'    => null,
+        ];
+        $default[] = [
+            'ptype' => 'p',
+            'v0'    => 'admin',
+            'v1'    => '/admin/permissions',
+            'v2'    => 'all',
+            'v3'    => null,
+            'v4'    => null,
+            'v5'    => null,
+        ];
+        $default[] = [
+            'ptype' => 'p',
+            'v0'    => 'admin',
+            'v1'    => '/admin/admins',
+            'v2'    => 'all',
             'v3'    => null,
             'v4'    => null,
             'v5'    => null,

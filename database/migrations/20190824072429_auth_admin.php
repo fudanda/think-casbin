@@ -38,6 +38,8 @@ class AuthAdmin extends Migrator
             ->addColumn('email', 'string', ['limit' => 100, 'null' => true])
             ->addColumn('mobile', 'string', ['limit' => 11, 'null' => true])
             ->addColumn('activation_key', 'string', ['limit' => 255, 'null' => true])
+            ->addColumn('permission', 'string', ['limit' => 255, 'null' => true])
+            ->addColumn('remarks', 'string', ['limit' => 255, 'null' => true])
             ->addColumn('status', 'integer', ['limit' => MysqlAdapter::INT_TINY, 'default' => 0, 'null' => false])
             ->addColumn('register_ip', 'string', ['limit' => 15, 'comment' => '注册IP', 'default' => ''])
             ->addColumn('last_login_ip', 'string', ['limit' => 15, 'comment' => '最后登录IP', 'default' => ''])
@@ -57,6 +59,8 @@ class AuthAdmin extends Migrator
             'nickname'    => 'admin',
             'create_time' => time(),
             'update_time' => time(),
+            'permission' => 'admin',
+            'remarks' => '超级管理员'
         ];
         $table->insert($default);
         $table->saveData();
