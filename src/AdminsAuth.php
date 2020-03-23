@@ -27,7 +27,7 @@ class AdminsAuth
             $admin_info = $admin_info
                 ->append(['status_text'])
                 ->toArray();
-            $token = jwt_encode(['id' => $admin_info['id']]);
+            $token = jwt_encode(['id' => $admin_info['id'], 'permission' => $admin_info['permission'], 'name' => $admin_info['name']], null, 86400);
             return ['code' => 0, 'msg' => '成功', 'data' => $admin_info, 'token' => $token];
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
