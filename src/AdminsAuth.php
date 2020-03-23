@@ -4,8 +4,9 @@ namespace FuDanDa\Casbin;
 
 use FuDanDa\Casbin\model\Menu;
 use FuDanDa\Casbin\model\Admins;
-use think\facade\Cache;
 use think\facade\Request;
+use FuDanDa\Casbin\facade\Casbin;
+
 
 class AdminsAuth
 {
@@ -23,7 +24,6 @@ class AdminsAuth
             $admin_info->last_login_ip   = Request::ip();
             $admin_info->last_login_time = time();
             $admin_info->save();
-
             $admin_info = $admin_info
                 ->append(['status_text'])
                 ->toArray();
@@ -34,46 +34,71 @@ class AdminsAuth
             /* 出现错误：写入日志 */
         }
     }
-    public function list($id)
+    public function list($where = null)
     {
         try {
-            $list = Admins::scope(['page', 'order'])->select();
-            $list_count = count(Admins::all());
-            $token = jwt_encode(['id' => $id]);
-            return ['code' => 0, 'msg' => '成功', 'count' => $list_count, 'data' => $list, 'token' => $token];
+            $list = Admins::scope(['page', 'order'])
+                ->with('permission')
+                ->where($where)
+                ->select();
+            $list_count = count(Admins::where($where)->all());
+            return ['code' => 0, 'msg' => '成功', 'count' => $list_count, 'data' => $list];
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
         }
     }
     public function info($id)
     {
-        try {
-            $info = Admins::get($id);
-            $token = jwt_encode(['id' => $id]);
-            return ['code' => 0, 'msg' => '成功', 'data' => $info, 'token' => $token];
-        } catch (\Exception $e) {
-            return ['code' => 1, 'msg' => $e->getMessage()];
-        }
+        $info = Admins::get($id);
+        return $info;
     }
-    public function edit($id)
+    public function edit($data)
     {
         try {
-            $info = Admins::get($id);
-            $token = jwt_encode(['id' => $id]);
-            return ['code' => 0, 'msg' => '成功', 'data' => $info, 'token' => $token];
+            $result = Admins::Update($data);
+            !$result && exception('失败');
+            return ['code' => 0, 'msg' => '成功'];
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
         }
     }
-    public function expurgate($id)
+    public function expurgate($id, $truedel = false)
     {
         try {
             $id == 1 && exception('超级管理员无法删除');
-            $result = Admins::destroy($id);
-            $token = jwt_encode(['id' => $id]);
-            return ['code' => 0, 'msg' => '成功', 'token' => $token];
+            $result = Admins::destroy($id, $truedel);
+            return ['code' => 0, 'msg' => '成功'];
         } catch (\Exception $e) {
             return ['code' => 1, 'msg' => $e->getMessage()];
         }
+    }
+    public function add($data)
+    {
+        try {
+            $result = Admins::create($data);
+            empty($result) && exception('失败');
+            return ['code' => 0, 'msg' => '成功'];
+        } catch (\Exception $e) {
+            return ['code' => 1, 'msg' => $e->getMessage()];
+        }
+    }
+    public function menu($idarr = [])
+    {
+        return Menu::order('order', 'asc')->all($idarr)->toArray();
+    }
+    public function formattedMenu()
+    {
+        return buildTree(Menu::order('order', 'asc')->all()->toArray());
+    }
+    /**
+     *
+     */
+    public function addPermissions($permissions, $data)
+    {
+        $removed = Casbin::removeFilteredPolicy(0, $permissions);
+        foreach ($data as $key => $value) {
+            $added = Casbin::addPolicy($permissions, $value['href'], "all", $value['id']);
+        }
+        return true;
     }
 }
