@@ -28,10 +28,7 @@
         "think": {
             "services": [
                 "fdd\\casbin\\Service"
-            ],
-            "config": {
-                "apiconfig": "src/Config.php"
-            }
+            ]
         }
     }
 }

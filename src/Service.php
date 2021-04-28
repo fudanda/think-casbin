@@ -3,7 +3,7 @@
 
 namespace fdd\Casbin;
 
-use Fdd\ApiDoc\command\Publish;
+use fdd\casbin\command\Publish;
 
 class Service extends \think\Service
 {
