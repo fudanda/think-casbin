@@ -1,6 +1,6 @@
 <?php
 
-namespace FuDanDa\Casbin;
+namespace fdd\Casbin;
 
 class Utils
 {

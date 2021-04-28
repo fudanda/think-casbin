@@ -1,6 +1,6 @@
 <?php
 
-namespace FuDanDa\Casbin\command;
+namespace fdd\casbin\command;
 
 use think\console\Input;
 use think\console\Output;

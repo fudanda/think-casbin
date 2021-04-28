@@ -1,17 +1,16 @@
 {
     "name": "fdd/think-casbin",
-    "description": "ThinkPHP5.1 权限管理",
+    "description": "权限管理",
     "type": "think-extend",
     "authors": [
         {
-            "name": "fudanda",
-            "email": "314663951@qq.com"
+            "name": "fudanda"
         }
     ],
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "FuDanDa\\Casbin\\": "src/",
+            "fdd\\casbin\\": "src/",
             "CasbinAdapter\\DBAL\\": "adapter/"
         },
         "files": [
@@ -19,14 +18,19 @@
         ]
     },
     "require": {
-        "php": ">=5.6.0",
-        "casbin/casbin": "^2.1",
+        "php": ">=6.0.0",
+        "casbin/casbin": "*",
         "topthink/think-migration": "*",
-        "doctrine/dbal": "^2.10"
+        "doctrine/dbal": "*"
     },
     "extra": {
-        "think-config": {
-            "casbin": "config/casbin.php"
+        "think": {
+            "services": [
+                "fdd\\casbin\\Service"
+            ],
+            "config": {
+                "apiconfig": "src/Config.php"
+            }
         }
     }
 }
