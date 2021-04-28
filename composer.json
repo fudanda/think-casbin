@@ -18,7 +18,8 @@
         ]
     },
     "require": {
-        "php": ">=6.0.0",
+        "php": ">=7.1.0",
+        "topthink/framework": "^6.0.0",
         "casbin/casbin": "*",
         "topthink/think-migration": "*",
         "doctrine/dbal": "*"
