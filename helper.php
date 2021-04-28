@@ -1,10 +1,4 @@
 <?php
-\think\Console::addDefaultCommands([
-    FuDanDa\Casbin\command\Db::class,
-]);
-\think\Loader::addClassAlias([
-    'Casbin' => FuDanDa\Casbin\facade\Casbin::class,
-]);
 if (!function_exists('scan_dir')) {
     /**
      * 扫描目录.
